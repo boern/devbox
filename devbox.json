@@ -1,12 +1,13 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.13.7/.schema/devbox.schema.json",
   "packages": {
-    "go":{
-      "version":"1.22.10" 
+    "go": {
+      "version": "1.22.10"
     },
     "python": {
       "version": "3.10.12"
-    }
+    },
+    "rustup": "latest"
   },
   "env": {
     "GOPATH": "$HOME/go",
@@ -14,12 +15,15 @@
   },
   "shell": {
     "init_hook": [
-        ". $VENV_DIR/bin/activate"      
-      ],
+      ". $VENV_DIR/bin/activate"
+    ],
     "scripts": {
       "test": [
         "echo \"Error: no test specified\" && exit 1"
       ]
     }
-  }
+  },
+  "include": [
+    "github:boern/devbox?dir=plugins/rustup"
+  ]
 }
