@@ -1,0 +1,14 @@
+{
+    "name": "rustup",
+    "version": "0.0.1",
+    "description": "This plugin automatically generating completion scripts for Bash, Fish, Zsh, and PowerShell.",
+
+    "create_files": {
+        "{{ .Virtenv }}/bin/initHook.sh": "config/initHook.sh"
+    },
+    "shell": {
+        "init_hook": [
+            "{{ .Virtenv }}/bin/initHook.sh"
+        ]
+    }
+}
