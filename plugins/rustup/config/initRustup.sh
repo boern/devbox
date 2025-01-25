@@ -38,7 +38,7 @@ generate_rustup_completions() {
             #     echo "fpath+=~/.zfunc" >> "$HOME/.zshrc"
             # fi
             if ! echo $fpath | grep -q ".zfunc" ; then
-                fpath+=~/.zfunc
+                fpath+=$zfunc_dir
                 compinit
             fi
 
