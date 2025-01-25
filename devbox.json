@@ -7,15 +7,19 @@
     "python": {
       "version": "3.10.12"
     },
-    "rustup": "latest"
+    "rustup": "latest",
+    "libiconv": "latest"
   },
   "env": {
     "GOPATH": "$HOME/go",
-    "PATH":   "$PATH:$GOPATH/bin"
+    "PATH": "$PATH:$GOPATH/bin",
+    "RUSTUP_HOME": "$HOME/.rustup",
+    "CARGO_HOME": "$HOME/.cargo"
   },
   "shell": {
     "init_hook": [
-      ". $VENV_DIR/bin/activate"
+      ". $VENV_DIR/bin/activate",
+      "rustup default stable"
     ],
     "scripts": {
       "test": [

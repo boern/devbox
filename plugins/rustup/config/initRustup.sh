@@ -8,50 +8,55 @@ generate_rustup_completions() {
     case "$shell" in
         bash)
             # Check if on macOS or Linux
-            if [[ "$OSTYPE" == "darwin"* ]]; then
-                local completion_dir="$(brew --prefix)/etc/bash_completion.d"
-                mkdir -p "$completion_dir"
-                rustup completions bash > "$completion_dir/rustup.bash-completion"
-                rustup completions bash cargo > "$completion_dir/cargo.bash-completion"
-                echo "Rustup completions for Bash (macOS/Homebrew) added to: $completion_dir"
-            else
-                local completion_dir="$HOME/.local/share/bash-completion/completions"
-                mkdir -p "$completion_dir"
-                rustup completions bash > "$completion_dir/rustup"
-                rustup completions bash cargo >> "$completion_dir/cargo"
-                echo "Rustup completions for Bash added to: $completion_dir"
-            fi
+            # if [[ "$OSTYPE" == "darwin"* ]]; then
+            #     local completion_dir="$(brew --prefix)/etc/bash_completion.d"
+            #     mkdir -p "$completion_dir"
+            #     rustup completions bash > "$completion_dir/rustup.bash-completion"
+            #     rustup completions bash cargo > "$completion_dir/cargo.bash-completion"
+            #     echo "Rustup completions for Bash (macOS/Homebrew) added to: $completion_dir"
+            # else
+            #     local completion_dir="$HOME/.local/share/bash-completion/completions"
+            #     mkdir -p "$completion_dir"
+            #     rustup completions bash > "$completion_dir/rustup"
+            #     rustup completions bash cargo >> "$completion_dir/cargo"
+            #     echo "Rustup completions for Bash added to: $completion_dir"
+            # fi
+            . <(rustup completions bash)
+            . <(rustup completions bash cargo)
             ;;
         fish)
-            local completion_dir="$HOME/.config/fish/completions"
-            mkdir -p "$completion_dir"
-            rustup completions fish > "$completion_dir/rustup.fish"
-            echo "Rustup completions for Fish added to: $completion_dir"
+            # local completion_dir="$HOME/.config/fish/completions"
+            # mkdir -p "$completion_dir"
+            # rustup completions fish > "$completion_dir/rustup.fish"
+            # echo "Rustup completions for Fish added to: $completion_dir"
+            rustup completions fish | source
             ;;
         zsh)
-            local zfunc_dir="$HOME/.zfunc"
-            mkdir -p "$zfunc_dir"
-            rustup completions zsh > "$zfunc_dir/_rustup"
-            rustup completions zsh cargo > "$zfunc_dir/_cargo" 
-            # Ensure fpath is updated in .zshrc
-            # if ! grep -q "fpath+=~/.zfunc" "$HOME/.zshrc"; then
-            #     echo "fpath+=~/.zfunc" >> "$HOME/.zshrc"
+            # local zfunc_dir="$HOME/.zfunc"
+            # mkdir -p "$zfunc_dir"
+            # rustup completions zsh > "$zfunc_dir/_rustup"
+            # rustup completions zsh cargo > "$zfunc_dir/_cargo" 
+            # # Ensure fpath is updated in .zshrc
+            # # if ! grep -q "fpath+=~/.zfunc" "$HOME/.zshrc"; then
+            # #     echo "fpath+=~/.zfunc" >> "$HOME/.zshrc"
+            # # fi
+            # if ! echo $fpath | grep -q ".zfunc" ; then
+            #     fpath+=$zfunc_dir
+            #     compinit
             # fi
-            if ! echo $fpath | grep -q ".zfunc" ; then
-                fpath+=$zfunc_dir
-                compinit
-            fi
-
-            echo "Rustup completions for Zsh added to: $zfunc_dir"
+            # echo "Rustup completions for Zsh added to: $zfunc_dir"
+            . <(rustup completions zsh)
+            . <(rustup completions zsh cargo)
             ;;
         pwsh|powershell)
-            local profile_path="$PROFILE"
-            if [[ -z "$profile_path" ]]; then
-                echo "PowerShell profile not found. Please configure it first."
-                return 1
-            fi
-            rustup completions powershell >> "$profile_path.CurrentUserCurrentHost"
-            echo "Rustup completions for PowerShell added to: $profile_path.CurrentUserCurrentHost"
+            # local profile_path="$PROFILE"
+            # if [[ -z "$profile_path" ]]; then
+            #     echo "PowerShell profile not found. Please configure it first."
+            #     return 1
+            # fi
+            # rustup completions powershell >> "$profile_path.CurrentUserCurrentHost"
+            # echo "Rustup completions for PowerShell added to: $profile_path.CurrentUserCurrentHost"
+            . <(rustup completions powershell)
             ;;
         *)
             echo "Unsupported shell: $shell"
