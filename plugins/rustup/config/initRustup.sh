@@ -34,9 +34,14 @@ generate_rustup_completions() {
             rustup completions zsh > "$zfunc_dir/_rustup"
             rustup completions zsh cargo > "$zfunc_dir/_cargo" 
             # Ensure fpath is updated in .zshrc
-            if ! grep -q "fpath+=~/.zfunc" "$HOME/.zshrc"; then
-                echo "fpath+=~/.zfunc" >> "$HOME/.zshrc"
+            # if ! grep -q "fpath+=~/.zfunc" "$HOME/.zshrc"; then
+            #     echo "fpath+=~/.zfunc" >> "$HOME/.zshrc"
+            # fi
+            if ! echo $fpath | grep -q ".zfunc" ; then
+                fpath+=~/.zfunc
+                compinit
             fi
+
             echo "Rustup completions for Zsh added to: $zfunc_dir"
             ;;
         pwsh|powershell)
